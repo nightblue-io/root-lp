@@ -1,0 +1,5 @@
+title: "NightBlue"
+baseURL: https://nightblue.io
+# theme: ["github.com/onweru/newsroom"]
+defaultContentLanguage: en
+assetDir: static
