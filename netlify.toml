@@ -1,6 +1,16 @@
+[build.environment]
+HUGO_VERSION = "0.147.7"
+TZ = "Asia/Tokyo"
+
 [build]
 publish = "public"
-command = "hugo --gc --minify" # uncomment in production
+command = """\
+  hugo --gc --minify \
+  """
+
+# [build]
+# publish = "public"
+# command = "hugo --gc --minify" # uncomment in production
 # command = "tinacms build && hugo --gc --minify --baseURL https://rooms.netlify.app/" # comment out in production
 
 # [context.production.environment]
