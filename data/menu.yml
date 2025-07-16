@@ -1,7 +1,7 @@
 - item: About
   url: about/
-- item: Blog
-  url: ""
+- item: "Contact us"
+  url: "https://forms.gle/LS7t8fypAUa7xnnC9"
 # - item: Category
 #   url: categories
 # - item: Tag
