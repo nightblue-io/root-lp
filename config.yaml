@@ -1,5 +1,5 @@
 title: "NightBlue"
 baseURL: https://nightblue.io
-theme: "newsroom"
+# theme: "newsroom"
 defaultContentLanguage: en
 assetDir: static
