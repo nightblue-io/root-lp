@@ -1,6 +1,6 @@
-- item: About
+- item: "About Us"
   url: about/
-- item: "Contact us"
+- item: "Contact Us"
   url: "https://forms.gle/LS7t8fypAUa7xnnC9"
 # - item: Category
 #   url: categories
