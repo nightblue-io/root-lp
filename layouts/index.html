@@ -15,38 +15,17 @@
 
 <div class="container">
   <div class="post-list">
-    {{- range $i, $p := $paginator.Pages }}
-    {{- if eq $i 0 }}
-    {{- /* Latest post — rendered large as a featured card. */ -}}
-    {{- $img := "" }}{{ with $p.Params.image }}{{ $img = partial "func/getImage" $p }}{{ end }}
-    <a class="post-card post-card--featured" href="{{ $p.Permalink }}">
-      {{- with $img }}
-      <div class="post-card__media" style="background-image:url('{{ . }}')" aria-hidden="true"></div>
-      {{- end }}
-      <div class="post-card__content">
-        <div class="post-meta">
-          <span class="post-card__badge">Latest</span>
-          <time datetime="{{ $p.Date.Format "2006-01-02" }}">{{ $p.Date.Format "January 2, 2006" }}</time>
-          <span class="post-meta__dot" aria-hidden="true"></span>
-          <span>{{ $p.ReadingTime }} min read</span>
-        </div>
-        <h2 class="post-card__title">{{ $p.Title }}</h2>
-        <p class="post-card__excerpt">{{ $p.Summary | plainify | truncate 240 }}</p>
-        <span class="post-card__more">Read post &rarr;</span>
-      </div>
-    </a>
-    {{- else }}
-    <a class="post-card" href="{{ $p.Permalink }}">
+    {{- range $paginator.Pages }}
+    <a class="post-card" href="{{ .Permalink }}">
       <div class="post-meta">
-        <time datetime="{{ $p.Date.Format "2006-01-02" }}">{{ $p.Date.Format "January 2, 2006" }}</time>
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
         <span class="post-meta__dot" aria-hidden="true"></span>
-        <span>{{ $p.ReadingTime }} min read</span>
+        <span>{{ .ReadingTime }} min read</span>
       </div>
-      <h2 class="post-card__title">{{ $p.Title }}</h2>
-      <p class="post-card__excerpt">{{ $p.Summary | plainify | truncate 180 }}</p>
+      <h2 class="post-card__title">{{ .Title }}</h2>
+      <p class="post-card__excerpt">{{ .Summary | plainify | truncate 180 }}</p>
       <span class="post-card__more">Read post &rarr;</span>
     </a>
-    {{- end }}
     {{- end }}
   </div>
   {{- partial "pager" . }}
