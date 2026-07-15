@@ -1,3 +1,3 @@
-module newsroom
+module nightblue
 
 go 1.19
