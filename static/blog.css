@@ -1,0 +1,135 @@
+/* ===================== Blog styles =====================
+   Layered on top of the site's styles.css - reuses its tokens
+   (--bg, --surface, --text, --muted, --accent, --font-serif, ...),
+   .nav, .brand, .btn, .footer, .container. This file only adds the
+   blog-specific bits: the index listing and the article/prose layout.
+   CSP-safe: external stylesheet, no inline styles. */
+
+/* --- Shared blog page header band --- */
+.blog-head {
+  padding-block: 72px 8px;
+  text-align: center;
+}
+.blog-head .container { max-width: 760px; }
+.blog-head__eyebrow {
+  display: inline-block; text-transform: uppercase; letter-spacing: 0.14em;
+  font-size: 0.78rem; font-weight: 600; color: var(--accent-2);
+  padding: 6px 12px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface);
+}
+.blog-head__title {
+  margin-top: 20px; font-family: var(--font-serif);
+  font-size: clamp(2rem, 5vw, 3rem); line-height: 1.1; font-weight: 400; letter-spacing: -0.03em;
+}
+.blog-head__lead { margin-top: 16px; color: var(--muted); font-size: 1.075rem; }
+
+/* --- Index: post list --- */
+.post-list {
+  max-width: 760px; margin: 48px auto 0;
+  display: grid; gap: 18px;
+}
+.post-card {
+  display: block;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 26px;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.12s ease, border-color 0.15s;
+}
+.post-card:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); }
+.post-card:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
+.post-card__title {
+  font-family: var(--font-serif); font-size: 1.4rem; font-weight: 500;
+  letter-spacing: -0.01em; line-height: 1.25;
+}
+.post-card__excerpt { margin-top: 8px; color: var(--muted); font-size: 0.98rem; }
+.post-card__more { margin-top: 12px; display: inline-block; color: var(--accent-2); font-weight: 600; font-size: 0.92rem; }
+
+/* --- Post meta (date · reading time) shared by card + article --- */
+.post-meta {
+  display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+  color: var(--muted); font-size: 0.85rem;
+}
+.post-meta__dot { width: 3px; height: 3px; border-radius: 50%; background: var(--muted); }
+
+/* --- Article --- */
+.article { padding-block: 64px 40px; }
+.article__inner { max-width: 720px; margin-inline: auto; }
+.article__back { display: inline-block; margin-bottom: 24px; color: var(--muted); font-size: 0.92rem; }
+.article__back:hover { color: var(--text); }
+.article__title {
+  font-family: var(--font-serif); font-size: clamp(1.9rem, 4.5vw, 2.8rem);
+  line-height: 1.12; font-weight: 400; letter-spacing: -0.03em; text-wrap: balance;
+}
+.article__meta { margin-top: 16px; }
+.article__divider { margin: 28px 0 0; border: 0; border-top: 1px solid var(--border); }
+
+/* --- Prose: long-form body copy --- */
+.prose { margin-top: 32px; color: var(--text); font-size: 1.075rem; line-height: 1.75; }
+.prose > * + * { margin-top: 1.15em; }
+.prose h2 {
+  margin-top: 1.9em; font-family: var(--font-serif); font-size: 1.55rem;
+  font-weight: 500; letter-spacing: -0.015em; line-height: 1.25;
+}
+.prose h3 {
+  margin-top: 1.6em; font-family: var(--font-serif); font-size: 1.25rem;
+  font-weight: 500; letter-spacing: -0.01em;
+}
+.prose p, .prose ul, .prose ol { color: var(--text); }
+.prose a { color: var(--accent-2); text-decoration: underline; text-underline-offset: 2px; }
+.prose a:hover { color: var(--accent); }
+.prose strong { font-weight: 700; }
+.prose ul, .prose ol { padding-left: 1.4em; }
+.prose ul { list-style: disc; }
+.prose ol { list-style: decimal; }
+.prose li { margin-top: 0.4em; }
+.prose li::marker { color: var(--muted); }
+.prose blockquote {
+  margin-inline: 0; padding: 4px 20px; border-left: 3px solid var(--accent);
+  color: var(--muted); font-style: italic;
+}
+.prose code {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.9em; background: var(--surface); border: 1px solid var(--border);
+  border-radius: 6px; padding: 1px 6px;
+}
+.prose pre {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 16px 18px; overflow-x: auto; font-size: 0.9rem; line-height: 1.6;
+}
+.prose pre code { background: none; border: 0; padding: 0; font-size: inherit; }
+
+/* --- Article footer CTA --- */
+.article-cta {
+  max-width: 720px; margin: 40px auto 0; padding: 28px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--radius); box-shadow: var(--card-shadow); text-align: center;
+}
+.article-cta__title { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 500; }
+.article-cta__body { margin-top: 8px; color: var(--muted); font-size: 0.98rem; }
+.article-cta .btn { margin-top: 18px; }
+
+/* --- Simple centered state (blog 404) --- */
+.blog-empty { padding-block: 100px; text-align: center; }
+.blog-empty__title { font-family: var(--font-serif); font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 400; }
+.blog-empty__body { margin-top: 12px; color: var(--muted); }
+.blog-empty .btn { margin-top: 24px; }
+
+@media (max-width: 640px) {
+  .article { padding-block: 44px 32px; }
+  .post-card { padding: 20px; }
+}
+
+/* --- Pager (prev / next between paginated listings) --- */
+.pager {
+  max-width: 760px; margin: 40px auto 0;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.pager__status { color: var(--muted); font-size: 0.9rem; }
+.pager [aria-disabled="true"] { opacity: 0.45; pointer-events: none; }
+
+/* --- Optional lead image inside an article --- */
+.article__image {
+  width: 100%; border-radius: var(--radius); border: 1px solid var(--border);
+  box-shadow: var(--card-shadow); margin-bottom: 8px;
+}

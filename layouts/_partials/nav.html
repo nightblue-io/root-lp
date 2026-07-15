@@ -1,10 +1,23 @@
-<div class="nav-drop">
-  <div class="nav-body">
-    {{- range site.Data.menu }}
-      <a href="{{ absURL .url }}" class="nav_item">{{ .item }}</a>
-    {{- end }}
-    <div class="nav-close"></div>
-    <!-- {{- partialCached "mode" . }} -->
+<header class="nav" id="top">
+  <div class="container nav__inner">
+    <a class="brand" href="{{ absURL "" }}" aria-label="{{ site.Title }} home">
+      <span class="brand__mark" aria-hidden="true"></span>
+      <span class="brand__name">{{ site.Title }}</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="{{ absURL "" }}">Blog</a>
+      {{- range site.Data.menu }}
+        {{- if not (in (lower .item) "contact") }}
+      <a href="{{ if hasPrefix .url "http" }}{{ .url }}{{ else }}{{ absURL .url }}{{ end }}">{{ .item }}</a>
+        {{- end }}
+      {{- end }}
+    </nav>
+    <div class="nav__actions">
+      {{- range site.Data.menu }}
+        {{- if in (lower .item) "contact" }}
+      <a class="btn btn--primary" href="{{ if hasPrefix .url "http" }}{{ .url }}{{ else }}{{ absURL .url }}{{ end }}">{{ .item }}</a>
+        {{- end }}
+      {{- end }}
+    </div>
   </div>
-</div>
-{{- partialCached "header" . }}
+</header>

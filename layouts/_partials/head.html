@@ -4,8 +4,9 @@
   {{- with site.Params.ga_verify }}
   <meta name="google-site-verification" content="{{ . }}" />
   {{- end }}
-  <meta name="viewport" content ="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Summary }}{{ . | plainify | truncate 160 }}{{ else }}News and updates from NightBlue — the team building Jennah, Vortex, and Freya.{{ end }}{{ end }}">
   {{- partialCached "analytics" . }}
   {{- partial "opengraph" . }}
   {{- partialCached "favicon" . }}

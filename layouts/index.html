@@ -1,32 +1,33 @@
 {{ define "main" }}
-{{- $config := site.Params }}
-{{- $blog_dir := default "posts" $config.blogDir }}
-{{- $pages := where site.RegularPages "Type" "in" $config.mainSections }}
-<div class="wrap pt-2 mt-2">
-  {{- $paginator := .Paginate $pages -}}
-  {{- $size := $paginator.PagerSize }}
-  {{- $scratch := newScratch }}
-  {{- range $index, $value := $paginator.Pages }}
-  {{ $bg := partial "func/getImage" . }}
-  <article class="article mb-2">
-    <a href={{ $value.Permalink }} {{ if eq $index 0 }} class=grid-reverse {{ end }}>
-      <div class=article_thumb style='background-image: url({{ $bg }})'></div>
-      <div class="article_meta {{ if eq $index 0 }} center_y {{ end }}">
-        <time class="post_date">{{ dateFormat "January 02, 2006" $value.Date }}</time>
-        <h3 class="article_title">{{ $value.Title }}</h3>
-        <div class="article_excerpt {{ if eq $index 0 }} visible {{ end }}">
-          <p>{{ truncate 100 $value.Summary }}</p>
-        </div>
+{{- $posts := where site.RegularPages "Section" "posts" }}
+{{- $paginator := .Paginate $posts.ByDate.Reverse }}
+
+<section class="blog-head">
+  <div class="container">
+    <p class="blog-head__eyebrow">Newsroom</p>
+    <h1 class="blog-head__title">News &amp; updates from NightBlue</h1>
+    <p class="blog-head__lead">
+      Product launches, releases, and notes from the team building
+      Jennah, Vortex, and Freya.
+    </p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="post-list">
+    {{- range $paginator.Pages }}
+    <a class="post-card" href="{{ .Permalink }}">
+      <div class="post-meta">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+        <span class="post-meta__dot" aria-hidden="true"></span>
+        <span>{{ .ReadingTime }} min read</span>
       </div>
+      <h2 class="post-card__title">{{ .Title }}</h2>
+      <p class="post-card__excerpt">{{ .Summary | plainify | truncate 180 }}</p>
+      <span class="post-card__more">Read post &rarr;</span>
     </a>
-  </article>
-  {{- if and (eq $index 0) (gt $size 1) }}<div class="grid-2 article_showcase">{{ end }}
-    {{- if and (eq $index (add $size -1)) (gt $size 1) }}</div>{{ end }}
-  {{- end }}
+    {{- end }}
+  </div>
+  {{- partial "pager" . }}
 </div>
-<a href='{{ absURL (printf "%s/%s" $blog_dir "") }}' class=post_nav><span class=post_next>{{ T "archive_text" }}
-    <svg class="icon icon_scale">
-      <use xlink:href="#double-arrow"></use>
-    </svg>
-  </span></a>
 {{ end }}

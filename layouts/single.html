@@ -1,29 +1,47 @@
 {{ define "main" }}
-  <div class="wrap mt post">
-    <div>
-      {{- $date := (dateFormat "02. January 2006" .Date) -}}
-      <p class=post_date>{{ $date }}</p>
-      <h1 class="post_title">{{ .Title }}</h1>
-      <div class="post_body">
-        <div class="post_inner">
-        {{ $image := partial "func/getImage" . }}
-        {{ with .Params.image }}
-          <img src="{{ $image }}" alt="{{ . }}" class="post_thumbnail">
-        {{ end }}
-          {{ .Content }}
-        </div>
-        <div class="post_extra mb-2">
-          {{ partialCached "share" . }}
-        </div>
-        <div>
-        {{ template "_internal/disqus.html" . }}
-        </div>
+{{- $isPost := eq .Section "posts" }}
+{{- /* Resolve a contact URL from the menu data for the article CTA. */ -}}
+{{- $contact := "mailto:info@nightblue.io" }}
+{{- range site.Data.menu }}
+  {{- if in (lower .item) "contact" }}{{ $contact = .url }}{{ end }}
+{{- end }}
+{{- $image := "" }}
+{{- with .Params.image }}{{ $image = partial "func/getImage" $ }}{{ end }}
+
+<article class="article">
+  <div class="container">
+    <div class="article__inner">
+      <a class="article__back" href="{{ absURL "" }}">&larr; {{ if $isPost }}All posts{{ else }}Back{{ end }}</a>
+      {{- with .Title }}
+      <h1 class="article__title">{{ . }}</h1>
+      {{- end }}
+      {{- if $isPost }}
+      <div class="post-meta article__meta">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+        <span class="post-meta__dot" aria-hidden="true"></span>
+        <span>{{ .ReadingTime }} min read</span>
+      </div>
+      {{- end }}
+      <hr class="article__divider" />
+
+      <div class="prose">
+        {{- with $image }}
+        <img class="article__image" src="{{ . }}" alt="{{ $.Title }}">
+        {{- end }}
+        {{ .Content }}
       </div>
     </div>
-    <a href={{ absURL "" }} class="post_nav"><span class="post_next">{{ T "latest_posts" }}
-      <svg class="icon icon_scale">
-        <use xlink:href="#double-arrow"></use>
-      </svg>
-    </span></a>
   </div>
+
+  <div class="container">
+    <div class="article-cta">
+      <p class="article-cta__title">Want to learn more about NightBlue?</p>
+      <p class="article-cta__body">
+        We build Jennah, Vortex, and Freya. Get in touch — we'd love to hear
+        what you're working on.
+      </p>
+      <a class="btn btn--primary" href="{{ $contact }}">Contact us</a>
+    </div>
+  </div>
+</article>
 {{ end }}

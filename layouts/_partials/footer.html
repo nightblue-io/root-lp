@@ -1,7 +1,16 @@
-<footer class="footer wrap pale">
-  <p>&copy;&nbsp;<span class="year"></span>&nbsp;{{ site.Title }}</p>
-  <p class="attribution upcase">{{ safeHTML (T "designed_by" site.Data.designer) }}</p>
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="brand">
+      <span class="brand__mark" aria-hidden="true"></span>
+      <span class="brand__name">{{ site.Title }}</span>
+    </div>
+    <p class="footer__copy">&copy; <span data-year>{{ now.Year }}</span> {{ site.Title }}. All rights reserved.</p>
+    <nav class="footer__links" aria-label="Footer">
+      <a href="{{ absURL "" }}">Blog</a>
+      {{- range site.Data.menu }}
+      <a href="{{ if hasPrefix .url "http" }}{{ .url }}{{ else }}{{ absURL .url }}{{ end }}">{{ .item }}</a>
+      {{- end }}
+    </nav>
+  </div>
 </footer>
-{{ $scriptPath := "js/index.js" }}
-{{ $scripts := resources.Get $scriptPath | resources.ExecuteAsTemplate $scriptPath . | resources.Minify | resources.Fingerprint "sha512" }}
-<script src="{{ $scripts.Permalink }}"></script>
+<script src="{{ absURL "main.js" }}"></script>

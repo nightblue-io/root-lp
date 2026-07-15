@@ -1,6 +1,33 @@
-{{- define "main" }}
-  {{- partial "archive" . }}
-  <div class="wrap">
-    {{- partial "pager" . }}
+{{ define "main" }}
+{{- $paginator := .Paginate .Pages.ByDate.Reverse }}
+
+<section class="blog-head">
+  <div class="container">
+    <p class="blog-head__eyebrow">{{ with .Type }}{{ humanize . }}{{ else }}Archive{{ end }}</p>
+    <h1 class="blog-head__title">{{ with .Title }}{{ . }}{{ else }}All posts{{ end }}</h1>
+    {{- with .Description }}
+    <p class="blog-head__lead">{{ . }}</p>
+    {{- end }}
   </div>
-{{- end }}
+</section>
+
+<div class="container">
+  <div class="post-list">
+    {{- range $paginator.Pages }}
+    <a class="post-card" href="{{ .Permalink }}">
+      {{- if not .Date.IsZero }}
+      <div class="post-meta">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+        <span class="post-meta__dot" aria-hidden="true"></span>
+        <span>{{ .ReadingTime }} min read</span>
+      </div>
+      {{- end }}
+      <h2 class="post-card__title">{{ .Title }}</h2>
+      <p class="post-card__excerpt">{{ .Summary | plainify | truncate 180 }}</p>
+      <span class="post-card__more">Read post &rarr;</span>
+    </a>
+    {{- end }}
+  </div>
+  {{- partial "pager" . }}
+</div>
+{{ end }}

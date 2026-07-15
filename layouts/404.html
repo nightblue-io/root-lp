@@ -1,7 +1,13 @@
 {{ define "main" }}
-<div class="never wrap">
-  <h1 class="never_title">{{ T "not_found_title" }}</h1>
-  <p class="pale">{{ T "not_found_text" }}</p>
-  <div class="btn btn_back upcase">{{ T "go_back" }}</div>
-</div>
+<section class="blog-empty">
+  <div class="container">
+    <p class="blog-head__eyebrow">404</p>
+    <h1 class="blog-empty__title">We couldn't find that page</h1>
+    <p class="blog-empty__body">
+      The page may have moved or never existed. Head back to the blog to find
+      what you're looking for.
+    </p>
+    <a class="btn btn--primary btn--lg" href="{{ absURL "" }}">Back to the blog</a>
+  </div>
+</section>
 {{ end }}
