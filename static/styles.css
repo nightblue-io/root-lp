@@ -83,9 +83,7 @@ img, svg { max-width: 100%; }
 
 .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; }
 .brand__mark {
-  width: 22px; height: 22px; border-radius: 7px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  box-shadow: 0 0 20px -4px var(--accent);
+  height: 28px; width: auto; display: block; object-fit: contain;
 }
 .brand__name { font-size: 1.15rem; letter-spacing: -0.01em; }
 
