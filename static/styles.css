@@ -6,9 +6,9 @@
   --border:    #e3e7f0;
   --text:      #14161f;
   --muted:     #5a6274;
-  --accent:    #6b5bff;
-  --accent-2:  #0d9488;
-  --accent-ink:#ffffff;
+  --accent:    #cba43d;
+  --accent-2:  #cba43d;
+  --accent-ink:#14161f;
   --danger:    #dc2626;
 
   --radius:   14px;
@@ -100,7 +100,7 @@ img, svg { max-width: 100%; }
 .btn:hover { transform: translateY(-1px); }
 .btn:active { transform: translateY(0); }
 .btn:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
-.btn--primary { background: linear-gradient(135deg, var(--accent), #6a5bff); color: #fff; box-shadow: 0 10px 30px -12px var(--accent); }
+.btn--primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: var(--accent-ink); box-shadow: 0 10px 30px -12px var(--accent); }
 .btn--primary:hover { filter: brightness(1.06); }
 .btn--ghost { background: var(--surface-2); border-color: var(--border); color: var(--text); }
 .btn--ghost:hover { border-color: var(--muted); }
